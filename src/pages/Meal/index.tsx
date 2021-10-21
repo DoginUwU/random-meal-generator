@@ -31,7 +31,11 @@ const Meal = () => {
           });
         }
       }
-      setMeal({ ...meals[0], ingredients });
+      setMeal({
+        ...meals[0],
+        ingredients,
+        tags: meals[0].strTags?.split(",").filter((a) => a.length > 0) || [],
+      });
     });
   }, []);
 
@@ -48,11 +52,7 @@ const Meal = () => {
           <Categorys>
             <li>{meal.strCategory}</li>
             <li>{meal.strArea}</li>
-            {meal.strTags &&
-              meal.strTags
-                .split(",")
-                .filter((a) => a.length > 0)
-                .map((tag) => <li key={tag}>{tag}</li>)}
+            {meal.strTags && meal.tags.map((tag) => <li key={tag}>{tag}</li>)}
           </Categorys>
           <Instructions>
             <img src={meal.strMealThumb} alt={meal.strMeal} />
